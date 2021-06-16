@@ -15,7 +15,12 @@ class CreateEnrollmentSubjectsTable extends Migration
     {
         Schema::create('enrollment_subjects', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('enrollment_header_id');
+            $table->string('subject_code');
             $table->timestamps();
+
+            $table->foreign('enrollment_header_id')->references('id')->on('enrollments');
+            $table->foreign('subject_code')->references('subject_code')->on('subjects');
         });
     }
 

@@ -15,17 +15,16 @@ class CreateEnrollmentsTable extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->string('student_number');
             $table->string('student_type');
             $table->unsignedInteger('year_level');
-            $table->unsignedBigInteger('control_number')->unique();
-            $table->unsignedBigInteger('course_code');
+            $table->string('control_number')->unique();
+            $table->string('course_code');
             $table->string('type');
-            $table->unsignedBigInteger('registration_status');
+            $table->unsignedBigInteger('enrollment_status')->default(0);
             $table->timestamps();
 
-            $table->foreign('course_code')->references('id')->on('courses');
-            $table->foreign('registration_status')->references('id')->on('student_registration_status');
+            $table->foreign('course_code')->references('course_code')->on('courses');
         });
     }
 
