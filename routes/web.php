@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/user/login', [UserController::class, 'login']);
 Route::post('/user/create', [UserController::class, 'create']);
 Route::post('/user/update', [UserController::class, 'update']);
 Route::get('/user/{student_number}', [UserController::class, 'read']);

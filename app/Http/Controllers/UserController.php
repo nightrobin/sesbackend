@@ -143,6 +143,48 @@ class UserController extends Controller
         ]); 
     }
 
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required|string|min:1|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status_code' => 'FAILED',
+                'message' => $validator->errors()
+            ]);
+        }
+
+        $user = User::where(['email'=>$request->email])->first();
+        // dd($request->email);
+        if(!$user){
+            $obj = new \stdClass;
+            $obj->credentials = "Credentials are incorrect/not found";
+
+            return response()->json([
+                'status_code' => 'FAILED',
+                'message' => $obj
+            ]);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            $obj = new \stdClass;
+            $obj->credentials = "Credentials are incorrect/not found";
+
+            return response()->json([
+                'status_code' => 'FAILED',
+                'message' => $obj
+            ]);
+        }
+
+        return response()->json([
+            'status_code' => 'SUCCESS',
+            'message' => $user
+        ]); 
+    }
+
     public function delete($student_number)
     {
         $user = User::where(['student_number'=>$student_number])->first();
