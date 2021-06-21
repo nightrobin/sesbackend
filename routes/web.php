@@ -40,6 +40,7 @@ Route::get('/subject/list', [SubjectController::class, 'list']);
 Route::get('/subject/detail/{subject_code}', [SubjectController::class, 'detail']);
 
 Route::get('/enrollment/list', [EnrollmentController::class, 'list']);
+Route::get('/enrollment/find/{student_number}', [EnrollmentController::class, 'findread']);
 Route::post('/enrollment/create/', [EnrollmentController::class, 'create']);
 Route::post('/enrollment/update', [EnrollmentController::class, 'update']);
 Route::get('/enrollment/detail/{control_number}', [EnrollmentController::class, 'detail']);

@@ -187,6 +187,27 @@ class EnrollmentController extends Controller
             'message' => $subjects
         ]);
     }
+
+    
+    public function findread($student_number)
+    {
+        $model = Enrollment::where(['student_number'=>$student_number])->first();
+        // dd($student_number);
+        if(!$model){
+            $obj = new \stdClass;
+            $obj->student_number = "student_number is not found in enrollment";
+
+            return response()->json([
+                'status_code' => 'FAILED',
+                'message' => $obj
+            ]);
+        }
+
+        return response()->json([
+            'status_code' => 'SUCCESS',
+            'message' => $model
+        ]);
+    }
 }
 
 /*
